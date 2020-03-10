@@ -39,6 +39,7 @@ $('document').ready(function () {
     $('#load_gallery').click(function () {
         console.log("avant");
         galery.initialisation("https://webetu.iutnc.univ-lorraine.fr");
+        // galery.initialisation("https://www.paulkelbert.fr");
         console.log("pendant");
         galery.chargement("/www/canals5/photobox/photos/?offset=8&size=12");
         console.log('apres');

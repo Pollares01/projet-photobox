@@ -10,7 +10,7 @@ let chargement = function (uri) {
 
 
 
-    let pr = axios.get(server_url+uri);
+    let pr = axios.get(server_url+uri, {withCredentials:true});
     pr.catch(function () {
         console.log('echec');
     });
