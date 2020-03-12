@@ -5,6 +5,7 @@ let server_url; //https://webetu.iutnc.univ-lorraine.fr/
 let initialisation = function (url) {
     server_url = url;
     photoloader.initialisation(server_url);
+
 };
 
 let chargement  = function (uri) {
@@ -14,15 +15,17 @@ let chargement  = function (uri) {
            $('#photobox-gallery').empty();
 
 
-            $('#next').click(function (event) {
+            $('#next').unbind('click');
+            $('#previous').unbind('click');
+
+            $('#next').bind('click', function (event) {
                 chargement(reponse.data.links.next.href);
                 event.preventDefault();
             });
-            $('#previous').click(function (event) {
+            $('#previous').bind('click', function (event) {
                 chargement(reponse.data.links.prev.href);
                 event.preventDefault();
             });
-
 
 
             reponse.data.photos.forEach(function (photo) {
