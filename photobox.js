@@ -36,7 +36,8 @@ $('document').ready(function () {
     // });
 
 
-    $('#load_gallery').click(function () {
+    $('#load_gallery').click(function (event) {
+        event.preventDefault();
         console.log("avant");
         galery.initialisation("https://webetu.iutnc.univ-lorraine.fr");
         // galery.initialisation("https://www.paulkelbert.fr");

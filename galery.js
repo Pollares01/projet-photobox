@@ -10,13 +10,30 @@ let initialisation = function (url) {
 let chargement  = function (uri) {
     let pr = photoloader.chargement(uri);
         pr.then(function (reponse) {
-            $('#photobox-gallery').empty();
+
+           $('#photobox-gallery').empty();
+
+
+            $('#next').click(function (event) {
+                chargement(reponse.data.links.next.href);
+                event.preventDefault();
+            });
+            $('#previous').click(function (event) {
+                chargement(reponse.data.links.prev.href);
+                event.preventDefault();
+            });
+
+
+
             reponse.data.photos.forEach(function (photo) {
                 console.log(photo);
                 console.log(photo.photo.original.href);
                 console.log(server_url+photo.photo.original.href);
 
                 // console.log(photo.photo.thumbnail.href);
+
+
+
 
 
                 let href = server_url+photo.photo.original.href;
@@ -60,6 +77,8 @@ let chargement  = function (uri) {
 
 
         });
+
+
 };
 
 export default {
