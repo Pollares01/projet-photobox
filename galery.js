@@ -8,23 +8,40 @@ let initialisation = function (url) {
 
 };
 
+
 let chargement  = function (uri) {
+
+
+
+
     let pr = photoloader.chargement(uri);
+    $('#imginfo').click(function () {
+
+
+
+        if($('#info_container').css('display')==='none'){
+            $('#info_container').css('display', 'block');
+        } else {
+            $('#info_container').css('display', 'none');
+        }
+
+    });
+
+
+
         pr.then(function (reponse) {
 
            $('#photobox-gallery').empty();
 
 
-            $('#next').unbind('click');
-            $('#previous').unbind('click');
+            $('#next').off('click');
+            $('#previous').off('click');
 
-            $('#next').bind('click', function (event) {
+            $('#next').click(function () {
                 chargement(reponse.data.links.next.href);
-                event.preventDefault();
             });
-            $('#previous').bind('click', function (event) {
+            $('#previous').click(function () {
                 chargement(reponse.data.links.prev.href);
-                event.preventDefault();
             });
 
 
@@ -33,7 +50,6 @@ let chargement  = function (uri) {
                 console.log(photo.photo.original.href);
                 console.log(server_url+photo.photo.original.href);
 
-                // console.log(photo.photo.thumbnail.href);
 
 
 
@@ -52,7 +68,13 @@ let chargement  = function (uri) {
                     '\n' +
                     '        </div>');
 
+
+
+
+
                 vi.click( function () {
+                    $('#info_container').css('display', 'none');
+
                     $('#lightbox_full_img').remove("img");
                     $('#lightbox_title').remove('h1');
 
@@ -61,6 +83,18 @@ let chargement  = function (uri) {
 
 
                     $('#lightbox_container').css('display', 'block');
+
+
+
+                    $('#info_container').remove();
+                    const desc = $('<div class="info_container" id="info_container">Titre de la photo : ' + photo.photo.titre +
+                        '<br>Dossier de l\'image : ' + photo.photo.file
+                        + '</div>');
+                    $('#infoButton').append(desc);
+
+
+
+
 
                     $('#lightbox-img').append(i);
                     $('#lightbox-head').append(t);
@@ -80,9 +114,8 @@ let chargement  = function (uri) {
 
 
         });
-
-
 };
+
 
 export default {
     initialisation : initialisation,
