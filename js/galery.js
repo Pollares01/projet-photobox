@@ -80,21 +80,48 @@ let chargement  = function (uri) {
 
                     lightbox.showAndHide(photo, href);
 
+                    let pr = axios.get(server_url+photo.links.self.href, {withCredentials:true});
+                    pr.catch(function () {
+                        console.log('echec');
+                    });
+
+                    pr.then(function (reponse) {
+                        console.log(reponse.data.photo);
+                        console.log(reponse.data.links);
+                        $('#info_container').remove();
+                        const desc = $('<div class="info_container" id="info_container"><div>Titre de la photo : ' + reponse.data.photo.titre +
+                            '</div><br><div>Dossier de l\'image : ' + reponse.data.photo.file +
+                            '</div><br><div>Description : ' + reponse.data.photo.descr
+                            + '</div></div>');
+                        $('#infoButton').append(desc);
 
 
-                    $('#info_container').remove();
-                    const desc = $('<div class="info_container" id="info_container">Titre de la photo : ' + photo.photo.titre +
-                        '<br>Dossier de l\'image : ' + photo.photo.file
-                        + '</div>');
-                    $('#infoButton').append(desc);
+
+                        let pr2 = axios.get(server_url+reponse.data.links.comments.href, {withCredentials:true});
+                        pr2.catch(function () {
+                            console.log('échec');
+                        });
+                        pr2.then(function (rep) {
+                            $('#commentaires').empty();
+                            rep.data.comments.forEach(function (com) {
 
 
 
+                                let v = $('<div class="commentaires_container">\n' +
+                                    '                    <h1>Titre :'+ com.id + '</h1>'  +
+                                    '                    <h2>Pseudo : '+ com.titre + '</h2>'  +
+                                    '                    <div>Contenu : ' + com.content +
+                                    '                    </div>' +
+                                    '                    <div>Date : ' + com.date +
+                                    '                    </div>' +
+                                    '                </div> <hr>');
 
+                                $('#commentaires').append(v);
+                            })
+                        })
 
-
+                    });
                 });
-
 
                 $('#photobox-gallery').append(vi);
 

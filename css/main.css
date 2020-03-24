@@ -103,6 +103,22 @@ body{
   width: 20rem;
 }
 
+#commentaires{
+  display: block;
+
+  color: black;
+  background-color: white;
+  position: fixed;
+  z-index: 999;
+  text-align: center;
+  width: 50rem;
+  overflow: scroll;
+  height: 250px;
+
+
+  /*bottom: 100px;*/
+}
+
 
 #lightbox_full_img{
   max-width: 60%;
