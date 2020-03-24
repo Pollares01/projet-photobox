@@ -1,4 +1,5 @@
 import photoloader from "./photoloader.js";
+import lightbox from "./lightbox.js";
 let server_url; //https://webetu.iutnc.univ-lorraine.fr/
 
 
@@ -9,23 +10,25 @@ let initialisation = function (url) {
 };
 
 
+function showAndHideInfoBox() {
+    $('#imginfo').click(function () {
+        let box = $('#info_container');
+       if(box.css('display')==='none'){
+            box.css('display', 'block');
+        } else {
+            box.css('display', 'none');
+        }
+
+    });
+}
+
 let chargement  = function (uri) {
 
 
 
 
     let pr = photoloader.chargement(uri);
-    $('#imginfo').click(function () {
-
-
-
-        if($('#info_container').css('display')==='none'){
-            $('#info_container').css('display', 'block');
-        } else {
-            $('#info_container').css('display', 'none');
-        }
-
-    });
+            showAndHideInfoBox();
 
 
 
@@ -73,16 +76,9 @@ let chargement  = function (uri) {
 
 
                 vi.click( function () {
-                    $('#info_container').css('display', 'none');
-
-                    $('#lightbox_full_img').remove("img");
-                    $('#lightbox_title').remove('h1');
-
-                    let i = $('<img id="lightbox_full_img" src="' + href + '" alt="">');
-                    let t = $('<h1 id="lightbox_title">'+photo.photo.titre+'</h1>');
 
 
-                    $('#lightbox_container').css('display', 'block');
+                    lightbox.showAndHide(photo, href);
 
 
 
@@ -96,12 +92,6 @@ let chargement  = function (uri) {
 
 
 
-                    $('#lightbox-img').append(i);
-                    $('#lightbox-head').append(t);
-
-                    $('#lightbox_close').click(function () {
-                        $('#lightbox_container').css('display', 'none');
-                    });
 
                 });
 
